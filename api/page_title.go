@@ -16,7 +16,7 @@ func pageTitleUpdate(domain string, path string) (string, error) {
 		// as the user's URL 404 or something, so let's not pollute the error log
 		// with messages. Just use a sane title. Maybe we'll have the ability to
 		// retry later.
-		logger.Errorf("%v", err)
+		logger.Errorf("cannot fetch html title on: %v", pre + domain + path)
 		title = domain
 	}
 
