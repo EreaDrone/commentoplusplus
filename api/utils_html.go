@@ -2,7 +2,8 @@ package main
 
 import (
 	"golang.org/x/net/html"
-	"net/http"
+	"net/http",
+	"io"
 )
 
 func isTitleElement(n *html.Node) bool {
@@ -11,7 +12,7 @@ func isTitleElement(n *html.Node) bool {
 
 func htmlTitleRecurse(h *html.Node) (string, bool) {
 	if isTitleElement(h) {
-		return n.FirstChild.Data, true
+		return h.FirstChild.Data, true
 	}
 
 	for c := h.FirstChild; c != nil; c = c.NextSibling {

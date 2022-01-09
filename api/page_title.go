@@ -25,7 +25,7 @@ func pageTitleUpdate(domain string, path string) (string, error) {
 		SET title = $3
 		WHERE canon($1) LIKE canon(domain) AND path = $2;
 	`
-	_, err = db.Exec(statement, domain, path, title)
+	_, err := db.Exec(statement, domain, path, title)
 	if err != nil {
 		logger.Errorf("cannot update pages table with title: %v", err)
 		return "", err
