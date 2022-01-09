@@ -22,14 +22,14 @@ func htmlTitleRecurse(h *html.Node) (string, bool) {
 		}
 	}
 
-	logger.Errorf("htmlTitleRecurse end error")
+	logger.Panicf("htmlTitleRecurse end error")
 	return "", false
 }
 
 func getHtmlTitle(r io.Reader) (string, bool) {
 	doc, err := html.Parse(r)
 	if err != nil {
-		logger.Errorf("html.Parse error")
+		logger.Panicf("html.Parse error")
 		return "", false
 	}
 	return htmlTitleRecurse(doc)
@@ -38,7 +38,7 @@ func getHtmlTitle(r io.Reader) (string, bool) {
 func htmlTitleGet(url string) (string) {
 	resp, err := http.Get(url)
 	if err != nil {
-		logger.Errorf("http.Get error")
+		logger.Panicf("http.Get error")
 		return ""
 	}
 	defer resp.Body.Close()
@@ -46,7 +46,7 @@ func htmlTitleGet(url string) (string) {
 	if title, ok := getHtmlTitle(resp.Body); ok {
 		return title
 	} else {
-		logger.Errorf("getHtmlTitle error")
+		logger.Panicf("getHtmlTitle error")
 		return ""
 	}
 }

@@ -17,7 +17,7 @@ func pageTitleUpdate(domain string, path string) (string, error) {
 		// as the user's URL 404 or something, so let's not pollute the error log
 		// with messages. Just use a sane title. Maybe we'll have the ability to
 		// retry later.
-		logger.Errorf("cannot fetch html title on: %v", pre + domain + path)
+		logger.Panicf("cannot fetch html title on: %v", pre + domain + path)
 		title = domain
 	}
 
@@ -28,7 +28,7 @@ func pageTitleUpdate(domain string, path string) (string, error) {
 	`
 	_, err := db.Exec(statement, domain, path, title)
 	if err != nil {
-		logger.Errorf("cannot update pages table with title: %v", err)
+		logger.Panicf("cannot update pages table with title: %v", err)
 		return "", err
 	}
 
