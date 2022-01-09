@@ -16,7 +16,7 @@ func smtpSendMail(toAddress string, toName string, contentType string, subject s
 	// Setup headers
 	headers := make(map[string]string)
 	headers["Subject"] = subject
-	headers["From"] = "Commento <" + from.String() + ">"
+	headers["From"] = "EreaDrone <" + from.String() + ">"
 	if toName == "" {
 		headers["To"] = to.String()
 	} else {
