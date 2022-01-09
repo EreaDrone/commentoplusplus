@@ -35,13 +35,13 @@ func getHtmlTitle(r io.Reader) (string, bool) {
 func htmlTitleGet(url string) (string) {
 	resp, err := http.Get(url)
 	if err != nil {
-		return nil
+		return ""
 	}
 	defer resp.Body.Close()
 
 	if title, ok := getHtmlTitle(resp.Body); ok {
 		return title
 	} else {
-		return nil
+		return ""
 	}
 }
