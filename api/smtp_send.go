@@ -10,18 +10,14 @@ import (
 )
 
 func smtpSendMail(toAddress string, toName string, contentType string, subject string, body string) error {
-	from := mail.Address{"", os.Getenv("SMTP_FROM_ADDRESS")}
-	to := mail.Address{"", toAddress}
+	from := mail.Address{"EreaDrone", os.Getenv("SMTP_FROM_ADDRESS")}
+	to := mail.Address{toName, toAddress}
 
 	// Setup headers
 	headers := make(map[string]string)
 	headers["Subject"] = subject
-	headers["From"] = "EreaDrone <" + from.String() + ">"
-	if toName == "" {
-		headers["To"] = to.String()
-	} else {
-		headers["To"] = toName + " <" + to.String() + ">"
-	}
+	headers["From"] = from.String()
+	headers["To"] = to.String()
 	if contentType == "" {
 		headers["Content-Type"] = "text/plain; charset=UTF-8"
 	} else {
