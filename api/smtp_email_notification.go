@@ -43,7 +43,7 @@ func smtpEmailNotification(to string, toName string, kind string, domain string,
 		return err
 	}
 
-	err = smtpSendMail(to, toName, "text/html; charset=UTF-8", "[Commento] "+title, body.String())
+	err = smtpSendMail(to, toName, "text/html; charset=UTF-8", "EreaDrone - "+title, body.String())
 	if err != nil {
 		logger.Errorf("cannot send email notification email: %v", err)
 		return errorCannotSendEmail
