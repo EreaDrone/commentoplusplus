@@ -5,36 +5,43 @@ import (
 	"net/http"
 )
 
-func htmlTitleRecurse(h *html.Node) string {
-	if h == nil || h.FirstChild == nil {
-		return ""
-	}
+func isTitleElement(n *html.Node) bool {
+	return n.Type == html.ElementNode && n.Data == "title"
+}
 
-	if h.Type == html.ElementNode && h.Data == "title" {
-		return h.FirstChild.Data
+func htmlTitleRecurse(h *html.Node) (string, bool) {
+	if isTitleElement(h) {
+		return n.FirstChild.Data, true
 	}
 
 	for c := h.FirstChild; c != nil; c = c.NextSibling {
-		res := htmlTitleRecurse(c)
-		if res != "" {
-			return res
+		result, ok := htmlTitleRecurse(c)
+		if ok {
+			return result, ok
 		}
 	}
 
-	return ""
+	return "", false
 }
 
-func htmlTitleGet(url string) (string, error) {
+func getHtmlTitle(r io.Reader) (string, bool) {
+	doc, errr := html.Parse(r)
+	if err != nil {
+		"", false
+	}
+	return htmlTitleRecurse(doc)
+}
+
+func htmlTitleGet(url string) (string) {
 	resp, err := http.Get(url)
 	if err != nil {
-		return "", err
+		return nil
 	}
 	defer resp.Body.Close()
 
-	h, err := html.Parse(resp.Body)
-	if err != nil {
-		return "", err
+	if title, ok := getHtmlTitle(resp.Body); ok {
+		return title
+	} else {
+		return nil
 	}
-
-	return htmlTitleRecurse(h), nil
 }
