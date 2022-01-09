@@ -2,7 +2,7 @@ package main
 
 import (
 	"golang.org/x/net/html"
-	"net/http",
+	"net/http"
 	"io"
 )
 
