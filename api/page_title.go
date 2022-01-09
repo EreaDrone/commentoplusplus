@@ -10,7 +10,7 @@ func pageTitleUpdate(domain string, path string) (string, error) {
 	} else {
 		pre = "http://"
 	}
-	logger.Loggerf("fetching %v", pre + domain + path)
+	logger.Infof("fetching %v", pre + domain + path)
 	title := htmlTitleGet(pre + domain + path)
 	if title == "" {
 		// This could fail due to a variety of reasons that we can't control such
