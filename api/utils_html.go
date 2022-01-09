@@ -27,7 +27,7 @@ func htmlTitleRecurse(h *html.Node) (string, bool) {
 func getHtmlTitle(r io.Reader) (string, bool) {
 	doc, errr := html.Parse(r)
 	if err != nil {
-		"", false
+		return "", false
 	}
 	return htmlTitleRecurse(doc)
 }
