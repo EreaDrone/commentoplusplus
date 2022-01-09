@@ -10,6 +10,8 @@ func loggerCreate() error {
 	format := logging.MustStringFormatter("[%{level}] %{shortfile} %{shortfunc}(): %{message}")
 	logging.SetFormatter(format)
 	logger = logging.MustGetLogger("commento")
+	
+	logging.SetLevel(logging.DEBUG, "")
 
 	return nil
 }
